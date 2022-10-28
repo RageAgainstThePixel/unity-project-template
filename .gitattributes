@@ -11,6 +11,18 @@
 *.asset merge=unityyamlmerge eol=lf
 *.meta merge=unityyamlmerge eol=lf
 *.controller merge=unityyamlmerge eol=lf
+# Unity .asset files that is always serialized as binary
+*.unity3d filter=lfs diff=lfs merge=lfs -text
+*.resS filter=lfs diff=lfs merge=lfs -text
+*LightingData.asset filter=lfs diff=lfs merge=lfs -text
+**/Data/level* filter=lfs diff=lfs merge=lfs -text
+**/Data/resources.assets* filter=lfs diff=lfs merge=lfs -text
+**/Data/sharedassets*.assets filter=lfs diff=lfs merge=lfs -text
+**/Data/sharedassets*.resource filter=lfs diff=lfs merge=lfs -text
+**/Data/globalgamemanagers filter=lfs diff=lfs merge=lfs -text
+**/Data/globalgamemanagers.assets filter=lfs diff=lfs merge=lfs -text
+**/Data/Resources/unity_builtin_extra filter=lfs diff=lfs merge=lfs -text
+**/Data/unity*default*resources filter=lfs diff=lfs merge=lfs -text
 ## git-lfs ##
 #Image
 *.jpg filter=lfs diff=lfs merge=lfs -text
@@ -54,5 +66,5 @@
 *.dylib filter=lfs diff=lfs merge=lfs -text
 *.aar filter=lfs diff=lfs merge=lfs -text
 *.bin filter=lfs diff=lfs merge=lfs -text
-# same for lighting data
-*LightingData.asset filter=lfs diff=lfs merge=lfs -text
+*.dat filter=lfs diff=lfs merge=lfs -text
+*.jar filter=lfs diff=lfs merge=lfs -text

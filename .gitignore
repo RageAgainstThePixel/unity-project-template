@@ -1,34 +1,29 @@
 # ============ #
 # System Files #
 # ============ #
+.DS_Store?
 .DS_Store
 ._*
+xcuserdata/
 
 # =============== #
 # Unity generated #
 # =============== #
-[Aa]pp/
-[Aa]pp.meta
+--[Vv]ersion/
+[Aa]rtifacts/
 [Bb]in/
 [Bb]uilds/
 [Bb]uild/
 [Ll]ibrary/
 [Ll]ogs/
+[Mm]emory[Cc]aptures/
 [Oo]bj/
 [Tt]emp/
-UserSettings/
-UWP/
-WindowsStoreApp/
-UnityGenerated/
-UnityPackageManager/
-.out/
-.gradle/
+[Uu]ser[Ss]ettings/
+UIElementsSchema/
+
 project.json
 project.lock.json
-*.package
-TextMesh Pro.meta
-TextMesh Pro/
-UIElementsSchema/
 *packages-lock.json
 
 # ============ #
@@ -39,9 +34,9 @@ UIElementsSchema/
 *.pfx
 *.pfx.meta
 
-# ===================================== #
-# Visual Studio / MonoDevelop generated #
-# ===================================== #
+# ============================================ #
+# Visual Studio / MonoDevelop / Mono generated #
+# ============================================ #
 .vs/
 ExportedObj/
 obj/
@@ -63,6 +58,14 @@ obj/
 *.idb
 *.opendb
 *.vsconfig
+*mono_crash?
+
+# ====== #
+# Gradle #
+# ====== #
+.out/
+.gradle/
+*local.properties
 
 # ============================ #
 # Visual Studio Code Generated #
@@ -73,15 +76,13 @@ obj/
 # Jetbrains Rider Generated #
 # ========================= #
 .idea/
-_ReSharper.Caches
+_ReSharper.Caches/
 
-# ===================== #
-# Project Specific List #
-# ===================== #
---Version/
-artifacts/
-StreamingAssets/
-StreamingAssets.meta
+# ================== #
+# Build Binary Files #
+# ================== #
+*.apk
+*.unitypackage
 
 # ================ #
 # Project Specific #

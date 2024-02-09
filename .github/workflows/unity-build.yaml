@@ -46,7 +46,7 @@ jobs:
           clean: true
           lfs: true
 
-      - uses: xrtk/unity-setup@fix/editor-root-path
+      - uses: xrtk/unity-setup@v7.4.2
         with:
           build-targets: ${{ matrix.build-target }}
 
@@ -89,9 +89,8 @@ jobs:
           overwrite: true
           name: ${{ matrix.build-target }}-Build-Artifacts
           path: |
-            ${{ env.UNITY_PROJECT_PATH }}/**/*.log
+            ${{ env.UNITY_PROJECT_PATH }}/Builds/**/*.log
             ${{ env.UNITY_PROJECT_PATH }}/Builds/${{ matrix.build-target }}/**/*
-            !${{ env.UNITY_PROJECT_PATH }}/Library/**/*
             !${{ env.UNITY_PROJECT_PATH }}/Builds/${{ matrix.build-target }}/*_BackUpThisFolder_ButDontShipItWithYourGame/**
             !${{ env.UNITY_PROJECT_PATH }}/Builds/${{ matrix.build-target }}/*_BurstDebugInformation_DoNotShip/**
 

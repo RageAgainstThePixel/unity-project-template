@@ -60,7 +60,7 @@ jobs:
         with:
           log-name: '${{ matrix.build-target }}-Build'
           build-target: '${{ matrix.build-target }}'
-          args: '-quit -batchmode -executeMethod Utilities.Editor.BuildPipeline.UnityPlayerBuildTools.StartCommandLineBuild -sceneList Assets/Scenes/LoadingScene.unity'
+          args: '-quit -batchmode -executeMethod Utilities.Editor.BuildPipeline.UnityPlayerBuildTools.StartCommandLineBuild -sceneList Assets/Application/Runtime/Scenes/LoadingScene.unity'
 
       - uses: actions/upload-artifact@v4
         name: Upload Artifacts

@@ -63,6 +63,23 @@ jobs:
           build-target: '${{ matrix.build-target }}'
           args: '-quit -batchmode -executeMethod Utilities.Editor.BuildPipeline.UnityPlayerBuildTools.StartCommandLineBuild -sceneList Assets/Application/Runtime/Scenes/LoadingScene.unity'
 
+      - name: Wait for unity process to exit
+        if: always()
+        run: |
+          # Wait for unity process to exit
+          $processIdFile = Join-Path $env:GITHUB_WORKSPACE "unity-process-id.txt"
+
+          if (Test-Path $processIdFile) {
+            $processId = Get-Content $processIdFile
+            Write-Host "::debug::Unity Process ID found: $processId"
+            $unityProcess = Get-Process -Id $processId -ErrorAction SilentlyContinue
+            if ($unityProcess -and !$unityProcess.HasExited) {
+              Write-Host "::debug::Killing Unity process with PID $processId"
+              Stop-Process -Id $processId -Force
+            }
+          }
+        shell: pwsh
+
       - uses: actions/upload-artifact@v4
         name: Upload Artifacts
         if: always()

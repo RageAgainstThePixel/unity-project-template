@@ -43,7 +43,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          clean: true
+          clean: ${{ inputs.clean == 'true' }}
           lfs: true
 
       - uses: xrtk/unity-setup@v7.4.1

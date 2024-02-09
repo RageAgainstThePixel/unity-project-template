@@ -46,7 +46,7 @@ jobs:
           clean: ${{ inputs.clean == 'true' }}
           lfs: true
 
-      - uses: xrtk/unity-setup@v7.4.1
+      - uses: xrtk/unity-setup@fix/editor-root-path
         with:
           build-targets: ${{ matrix.build-target }}
 

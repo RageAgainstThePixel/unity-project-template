@@ -72,9 +72,9 @@ jobs:
           overwrite: true
           name: ${{ matrix.build-target }}-Build-Artifacts
           path: |
-            ${{ env.UNITY_PROJECT_PATH }}/Logs/*.log
-            ${{ env.UNITY_PROJECT_PATH }}/Builds/*.log
+            ${{ env.UNITY_PROJECT_PATH }}/**/*.log
             ${{ env.UNITY_PROJECT_PATH }}/Builds/**/*
+            !${{ env.UNITY_PROJECT_PATH }}/Library/**
 
       - name: Clean Artifacts
         if: always()

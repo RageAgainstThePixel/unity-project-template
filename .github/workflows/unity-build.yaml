@@ -1,0 +1,95 @@
+name: unity-build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - '*'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+    inputs:
+      clean:
+        type: boolean
+        default: false
+        required: false
+        description: 'cleans the library folder and deletes cached items'
+
+concurrency:
+  group: ${{github.workflow}}-${{ github.ref }}
+  cancel-in-progress: ${{ ( github.event_name == 'pull_request' || github.event.action == 'synchronize' ) }}
+
+env:
+  UNITY_PROJECT_PATH: '' # Set by the unity-setup action
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: windows
+            build-target: StandaloneWindows64
+          - os: windows
+            build-target: Android
+          - os: macos
+            build-target: StandaloneOSX
+          - os: macos
+            build-target: iOS
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          clean: ${{ inputs.clean == 'true' }}
+          lfs: true
+
+      - uses: xrtk/unity-setup@v7.4.1
+        with:
+          build-targets: ${{ matrix.build-target }}
+
+      - uses: xrtk/unity-action@v6.1
+        name: Project Validation
+        with:
+          log-name: 'project-validation'
+          args: '-quit -batchmode -executeMethod Utilities.Editor.BuildPipeline.UnityPlayerBuildTools.ValidateProject'
+
+      - uses: xrtk/unity-action@v6.1
+        name: '${{ matrix.build-target }}-Build'
+        with:
+          log-name: '${{ matrix.build-target }}-Build'
+          build-target: '${{ matrix.build-target }}'
+          args: '-quit -batchmode -executeMethod Utilities.Editor.BuildPipeline.UnityPlayerBuildTools.StartCommandLineBuild -sceneList Assets/Scenes/LoadingScene.unity'
+
+      - uses: actions/upload-artifact@v4
+        name: Upload Artifacts
+        if: always()
+        with:
+          compression-level: 0
+          retention-days: 1
+          overwrite: true
+          name: ${{ matrix.build-target }}-Build-Artifacts
+          path: |
+            ${{ env.UNITY_PROJECT_PATH }}/**/*.log
+            ${{ env.UNITY_PROJECT_PATH }}/Builds/**/*
+
+      - name: Clean Artifacts
+        if: always()
+        run: |
+          # Clean Logs
+          Get-ChildItem -Path "${{ env.UNITY_PROJECT_PATH }}" -File -Filter "*.log" -Recurse | Remove-Item -Force
+
+          $artifacts = "${{ env.UNITY_PROJECT_PATH }}/Builds"
+          Write-Host "::debug::Build artifacts path: $artifacts"
+
+          if (Test-Path -Path $artifacts) {
+            try {
+              Remove-Item $artifacts -Recurse -Force
+            } catch {
+              Write-Warning "Failed to delete artifacts folder file: $_"
+            }
+          } else {
+            Write-Host "::debug::Artifacts folder not found."
+          }
+        shell: pwsh

@@ -43,7 +43,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          clean: ${{ inputs.clean == 'true' }}
+          clean: true
           lfs: true
 
       - uses: xrtk/unity-setup@fix/editor-root-path

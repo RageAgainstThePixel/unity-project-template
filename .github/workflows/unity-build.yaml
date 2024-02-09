@@ -75,6 +75,8 @@ jobs:
             ${{ env.UNITY_PROJECT_PATH }}/**/*.log
             ${{ env.UNITY_PROJECT_PATH }}/Builds/**/*
             !${{ env.UNITY_PROJECT_PATH }}/Library/**/*
+            !${{ env.UNITY_PROJECT_PATH }}/Builds/${{ matrix.build-target }}/*_BackUpThisFolder_ButDontShipItWithYourGame/**
+            !${{ env.UNITY_PROJECT_PATH }}/Builds/${{ matrix.build-target }}/*_BurstDebugInformation_DoNotShip/**
 
       - name: Clean Artifacts
         if: always()

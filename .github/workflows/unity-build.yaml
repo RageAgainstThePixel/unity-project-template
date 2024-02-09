@@ -89,6 +89,7 @@ jobs:
           overwrite: true
           name: ${{ matrix.build-target }}-Build-Artifacts
           path: |
+            ${{ env.UNITY_PROJECT_PATH }}/Logs/**/*.log
             ${{ env.UNITY_PROJECT_PATH }}/Builds/**/*.log
             ${{ env.UNITY_PROJECT_PATH }}/Builds/${{ matrix.build-target }}/**/*
             !${{ env.UNITY_PROJECT_PATH }}/Builds/${{ matrix.build-target }}/*_BackUpThisFolder_ButDontShipItWithYourGame/**

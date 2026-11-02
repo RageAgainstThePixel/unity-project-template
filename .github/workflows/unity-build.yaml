@@ -41,22 +41,22 @@ jobs:
             build-target: iOS
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           clean: true
           lfs: true
 
-      - uses: xrtk/unity-setup@v7.4.2
+      - uses: xrtk/unity-setup@8a66fa745f652eb5221806d838ac7a97e285acbf # v7.5.3
         with:
           build-targets: ${{ matrix.build-target }}
 
-      - uses: xrtk/unity-action@v6.1
+      - uses: xrtk/unity-action@e232fc4d16439ecbb1b14d44dec1b42da9bdc33f # v6.1
         name: Project Validation
         with:
           log-name: 'project-validation'
           args: '-quit -batchmode -executeMethod Utilities.Editor.BuildPipeline.UnityPlayerBuildTools.ValidateProject'
 
-      - uses: xrtk/unity-action@v6.1
+      - uses: xrtk/unity-action@e232fc4d16439ecbb1b14d44dec1b42da9bdc33f # v6.1
         name: '${{ matrix.build-target }}-Build'
         with:
           log-name: '${{ matrix.build-target }}-Build'
@@ -80,7 +80,7 @@ jobs:
           }
         shell: pwsh
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         name: Upload Artifacts
         if: always()
         with:
